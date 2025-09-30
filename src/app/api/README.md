@@ -18,8 +18,13 @@ Serverless handlers under `src/app/api` expose backend functionality to the App 
 
 ## Catalog Data
 ### `featured_luthiers/route.ts`
-- `GET` selects `id, name, type, bio, location, photo_url` from `luthiers` (currently limited to 10 rows).
-- Consumed by home and luthiers pages; expand query/pagination here as requirements grow.
+- `GET` selects key profile fields, structured address/coordinate data, verification flag, and aggregated instrument types (limited to 10 rows).
+- Used for carousels on the home page.
+
+### `luthiers/route.ts`
+- `GET` returns the full catalog of luthiers with geo coordinates (`latitude`, `longitude`), address parts (`street`, `house_number`, `postcode`, `city`, `country`), verification flag, and an `instruments` array aggregated from related listings.
+- Filters out rows lacking coordinates to keep the map rendering reliable.
+- Consumed by `src/app/luthiers/page.tsx` for listings, distance sorting, instrument/verification filtering, and map pins.
 
 ### `featured_instruments/route.ts`
 - `GET` joins `instruments` with `luthiers` to surface maker names.
@@ -27,8 +32,14 @@ Serverless handlers under `src/app/api` expose backend functionality to the App 
 - Responds with an array of instruments ordered randomly and limited to 10.
 - Logged output aids debugging; consider replacing `console.log` with structured logging.
 
+## Geocoding
+### `geocode/route.ts`
+- Lightweight proxy to OpenStreetMap Nominatim for forward geocoding.
+- Accepts a `q` search parameter, returns the upstream JSON payload (limited to 5 matches).
+- Adds a custom `User-Agent` header and caches responses for an hour to respect rate limits.
+
 ## Best Practices
 - Keep SQL isolated to this directory or to helper functions in `src/lib` to avoid duplication.
 - Prefer parameterized queries via the `pg` pool to mitigate injection risks.
 - Use `NextResponse.json` for consistent response envelopes.
-- Extend with `/api/luthiers` or other REST endpoints as the catalog grows, reusing patterns shown here.
+- Extend new endpoints alongside existing handlers and keep shared SQL/validation logic in `src/lib` to avoid duplication.

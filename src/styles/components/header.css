@@ -48,14 +48,11 @@
 .auth-link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--color-text);
-  /* border-radius: ; */
-  width: 32px;
-  height: 32px;
-  border-width: 10px;
-  border-color: white;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-white-text);
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
   transition: background 0.2s ease;
 }
 

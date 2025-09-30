@@ -13,9 +13,14 @@ interface Luthier {
   id: number;
   name: string;
   type: string;
-  bio: string;
-  location: string;
-  photo_url: string;
+  bio: string | null;
+  city: string | null;
+  country: string | null;
+  website: string | null;
+  verified: boolean;
+  locationLabel?: string;
+  photoUrl: string | null;
+   instruments?: string[];
 }
 
 interface InstrumentMedia {
@@ -116,33 +121,46 @@ export default function HomePage() {
               { breakpoint: 600, settings: { slidesToShow: 1 } },
             ]}
           >
-            {featuredLuthiers.map((l) => (
-              <div className="card" key={l.id}>
-                <div className="photo-wrapper">
-                  <Image
-                    src={
-                      l.photo_url?.startsWith("http")
-                        ? l.photo_url
-                        : `/uploads/luthiers/${l.photo_url || "placeholder.jpg"}`
-                    }
-                    alt={l.name}
-                    className="luthier-photo"
-                    width={200}
-                    height={200}
-                  />
+            {featuredLuthiers.map((l) => {
+              const location =
+                l.locationLabel || [l.city, l.country].filter(Boolean).join(", ");
+
+              return (
+                <div className="card" key={l.id}>
+                  <div className="photo-wrapper">
+                    <Image
+                      src={
+                        l.photoUrl?.startsWith("http")
+                          ? l.photoUrl
+                          : `/uploads/luthiers/${l.photoUrl || "placeholder.jpg"}`
+                      }
+                      alt={l.name}
+                      className="luthier-photo"
+                      width={200}
+                      height={200}
+                    />
+                  </div>
+                  <div className="card-info">
+                    <h4>{l.name}</h4>
+                    <p>
+                      <strong>Type:</strong> {l.type}
+                      {l.verified ? " • Verified" : ""}
+                    </p>
+                    <p>
+                      <strong>Location:</strong> {location || "Onbekend"}
+                    </p>
+                    {l.website && (
+                      <p className="bio">
+                        <a href={l.website} target="_blank" rel="noreferrer">
+                          Bezoek website
+                        </a>
+                      </p>
+                    )}
+                    {l.bio && <p className="bio">{l.bio}</p>}
+                  </div>
                 </div>
-                <div className="card-info">
-                  <h4>{l.name}</h4>
-                  <p>
-                    <strong>Type:</strong> {l.type}
-                  </p>
-                  <p>
-                    <strong>Location:</strong> {l.location}
-                  </p>
-                  <p className="bio">{l.bio}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </Slider>
         )}
       </section>

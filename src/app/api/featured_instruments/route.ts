@@ -1,10 +1,26 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/db";
 
+type InstrumentRow = {
+  id: number;
+  title: string;
+  year_built: number;
+  condition: string;
+  price: number;
+  location: string;
+  luthier_name: string | null;
+};
+
+type InstrumentMediaRow = {
+  id: number;
+  instrument_id: number;
+  url: string;
+};
+
 export async function GET() {
   try {
     // Get instruments with their luthier
-    const instruments = await pool.query(
+    const instruments = await pool.query<InstrumentRow>(
       `SELECT i.id, i.title, i.year_built, i.condition, i.price, i.location, 
               l.name AS luthier_name
        FROM instruments i
@@ -18,9 +34,9 @@ export async function GET() {
 
     // Get media for those instruments
     const instrumentIds = instruments.rows.map((r) => r.id);
-    let mediaRows: any[] = [];
+    let mediaRows: InstrumentMediaRow[] = [];
     if (instrumentIds.length > 0) {
-      const mediaResult = await pool.query(
+      const mediaResult = await pool.query<InstrumentMediaRow>(
         `SELECT id, instrument_id, url 
          FROM instrument_media 
          WHERE instrument_id = ANY($1::int[])`,
@@ -36,8 +52,9 @@ export async function GET() {
     }));
 
     return NextResponse.json(withMedia);
-  } catch (err: any) {
-    console.error("Error fetching featured instruments:", err.message);
-    return NextResponse.json({ msg: "Error fetching data", error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("Error fetching featured instruments:", message);
+    return NextResponse.json({ msg: "Error fetching data", error: message }, { status: 500 });
   }
 }

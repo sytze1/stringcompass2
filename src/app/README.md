@@ -9,12 +9,12 @@
 ## Pages
 | Route | Component | Notes |
 | --- | --- | --- |
-| `/` | `page.tsx` | Client component that fetches featured luthiers/instruments and renders React Slick carousels. |
+| `/` | `page.tsx` | Client component that fetches featured luthiers/instruments, displays verification + instrument badges, and renders React Slick carousels. |
 | `/about` | `about/page.tsx` | Static placeholder content. |
 | `/account` | `account/page.tsx` | Client-side gate using `useSession`; displays user metadata or prompts for login. |
 | `/auth` | `auth/page.tsx` | Handles credentials login/register flows against internal APIs; toggles between modes and uses `signIn`. |
 | `/instruments` | `instruments/page.tsx` | Static placeholder. |
-| `/luthiers` | `luthiers/page.tsx` | Client component fetching `/api/luthiers` for catalog rendering. |
+| `/luthiers` | `luthiers/page.tsx` | Interactive explorer with Leaflet map (Carto Voyager tiles), location search, distance/type/instrument/verification filters backed by `/api/luthiers` + `/api/geocode`. |
 
 ## Data Fetching Pattern
 - Interactive pages are marked with `"use client"` and rely on the browser `fetch` API to call the App Router endpoints.

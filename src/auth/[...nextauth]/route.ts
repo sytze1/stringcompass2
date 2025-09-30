@@ -1,5 +1,7 @@
-import NextAuth, { Session } from "next-auth";
+import NextAuth from "next-auth";
+import type { Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import type { JWT } from "next-auth/jwt";
 import pool from "../../lib/db";
 import bcrypt from "bcrypt";
 
@@ -40,14 +42,26 @@ export default NextAuth({
   ],
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({
+      token,
+      user,
+    }: {
+      token: JWT & { id?: string; role?: string };
+      user?: { id: string; role: string } | null;
+    }) {
       if (user) {
-        token.id = (user as any).id;
-        token.role = (user as any).role;
+        token.id = user.id;
+        token.role = user.role;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT & { id?: string; role?: string };
+    }) {
       if (token) {
         if (session.user) {
           session.user.id = token.id as string;

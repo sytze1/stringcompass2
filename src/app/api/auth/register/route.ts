@@ -21,8 +21,9 @@ export async function POST(req: Request) {
     );
 
     return NextResponse.json({ msg: "User created", user: result.rows[0] }, { status: 201 });
-  } catch (err: any) {
-    console.error("Register error:", err.message);
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    console.error("Register error:", message);
     return NextResponse.json({ msg: "Error registering" }, { status: 500 });
   }
 }

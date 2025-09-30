@@ -22,8 +22,6 @@ type LuthierRow = {
 };
 
 function mapRow(row: LuthierRow) {
-  const latitude = row.latitude == null ? null : Number(row.latitude);
-  const longitude = row.longitude == null ? null : Number(row.longitude);
   const instruments = Array.isArray(row.instruments)
     ? row.instruments.filter((instrument): instrument is string => Boolean(instrument))
     : [];
@@ -37,14 +35,13 @@ function mapRow(row: LuthierRow) {
     verified: Boolean(row.verified),
     createdAt: row.created_at,
     photoUrl: row.photo_url,
-    latitude,
-    longitude,
+    latitude: row.latitude == null ? null : Number(row.latitude),
+    longitude: row.longitude == null ? null : Number(row.longitude),
     postcode: row.postcode,
     country: row.country,
     city: row.city,
     street: row.street_name,
     houseNumber: row.house_number,
-    locationLabel: [row.city, row.country].filter(Boolean).join(", "),
     instruments,
   };
 }
@@ -74,9 +71,7 @@ export async function GET() {
          WHERE l.latitude IS NOT NULL AND l.longitude IS NOT NULL
          GROUP BY l.id, l.user_id, l.name, l.type, l.bio, l.website, l.verified,
                   l.created_at, l.photo_url, l.latitude, l.longitude, l.postcode,
-                  l.country, l.city, l.street_name, l.house_number
-         ORDER BY l.created_at DESC
-         LIMIT 10`
+                  l.country, l.city, l.street_name, l.house_number`
     );
 
     const payload = result.rows
@@ -86,7 +81,10 @@ export async function GET() {
     return NextResponse.json(payload);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("Error fetching featured luthiers:", message);
-    return NextResponse.json({ error: "Failed to fetch luthiers" }, { status: 500 });
+    console.error("Error fetching luthiers:", message);
+    return NextResponse.json(
+      { msg: "Error fetching luthiers", error: message },
+      { status: 500 }
+    );
   }
 }

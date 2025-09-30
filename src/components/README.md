@@ -16,6 +16,12 @@ Reusable UI pieces live in `src/components`. Each component imports its scoped C
 - Stateless component with navigation links and a copyright line.
 - Reads `new Date().getFullYear()` on the client; safe due to lightweight render.
 
+## LuthierMap
+- File: `luthier-map.tsx`
+- Client-side Leaflet map wrapper used on the luthiers explorer.
+- Centers around user input or averaged luthier positions and draws markers with popups, highlighting verification distance.
+- Uses the Carto Voyager tileset for a clean Google-like base map; ensure attribution is preserved when customising.
+
 ## Expansion Guidelines
 - Favor client components when session or browser APIs are required; default to server components otherwise.
 - Keep component-level styles in `src/styles/components` and adopt consistent naming (`.header`, `.footer`, etc.).

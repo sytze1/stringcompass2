@@ -13,7 +13,7 @@ Global styling lives in `src/styles` and is organized by concern to keep CSS man
 - Import CSS at the top of the component or page that needs it (e.g. `import "../styles/pages/homePage.css";`).
 - Keep selectors descriptive (e.g. `.auth-container`, `.luthiers-grid`) and scoped to avoid collisions.
 - Leverage theme variables (`var(--color-primary)`, etc.) for consistent colors and easier future theming.
-- Comments in `homePage.css` explain intent; follow that standard when adding new styles.
+- Comments in `homePage.css` explain intent; follow that standard when adding new styles. `luthiersPage.css` owns map sizing, filter layout, and card typography (distance emphasis, instrument tags).
 
 ## Tailwind Consideration
 - Tooling for Tailwind (PostCSS plugin, dependency) is present but unused. Decide whether to adopt Tailwind utility classes or remove the dependency to simplify the build.
