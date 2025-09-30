@@ -1,0 +1,30 @@
+@import './colortheme.css';
+
+.app {
+  font-family: 'Georgia', serif;
+  background-color: #f5f1e8;
+  color: #3d2b1f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--color-background); /* match your theme */
+}
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #fffaf5;
+}

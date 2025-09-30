@@ -1,0 +1,293 @@
+/* Import color theme variables for consistent styling */
+@import '../colortheme.css';
+
+/* Main home page container */
+.home {
+    padding: 2rem; /* Add spacing around entire page content */
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+  
+/* Hero Section - Main landing area with call-to-action */
+.hero {
+  text-align: center; /* Center align all hero content */
+  margin-bottom: 4rem; /* Space before next section */
+}
+
+/* Hero heading - primary page title */
+.hero h1 {
+  font-size: 2.8rem; /* Large, attention-grabbing text */
+  margin-bottom: 1rem;
+}
+
+/* Hero description text */
+.hero p {
+  font-size: 1.25rem; /* Slightly larger than body text */
+  margin-bottom: 1.5rem;
+}
+
+/* Primary call-to-action button */
+.explore-btn {
+  background-color: var(--color-primary); /* Use theme primary color */
+  color: var(--color-white-text);
+  border: none; /* Remove default button border */
+  padding: 0.75rem 2rem; /* Generous padding for clickability */
+  font-size: 1rem;
+  border-radius: 6px; /* Rounded corners */
+  cursor: pointer; /* Indicate interactivity */
+}
+
+/* Button hover state for better UX */
+.explore-btn:hover {
+  background-color: var(--color-primary-light); /* Lighter shade on hover */
+}
+
+/* How It Works Section - Process explanation area */
+.how-it-works {
+  margin-bottom: 4rem; /* Space between sections */
+  text-align: center;
+  padding: 2rem 0; /* Vertical padding for breathing room */
+}
+
+/* Section heading */
+.how-it-works h2 {
+  font-size: 2.5rem; /* Large section heading */
+  margin-bottom: 3rem; /* Space before content */
+  font-weight: bold;
+}
+
+/* Container for process steps */
+.steps {
+  display: flex;
+  justify-content: space-around; /* Evenly distribute steps */
+  margin-top: 2rem;
+  gap: 2rem; /* Space between step cards */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Individual step card */
+.step {
+  background-color: var(--color-secondary-background);
+  padding: 3rem 2rem; /* Large padding for prominence */
+  border-radius: 15px; /* Rounded corners for modern look */
+  flex: 1; /* Equal width distribution */
+  min-height: 280px; /* Consistent card height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animations */
+}
+
+/* Step card hover effect */
+.step:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+/* Step icon styling */
+.step-icon {
+  font-size: 3rem; /* Large icon size */
+  margin-bottom: 1.5rem;
+  color: var(--color-primary); /* Use theme color */
+}
+
+/* Step title */
+.step h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+/* Step description */
+.step p {
+  font-size: 1.1rem;
+  line-height: 1.5; /* Better readability */
+  text-align: center;
+  max-width: 60%; /* Prevent text from being too wide */
+}
+
+/* Mobile-first responsive design for steps */
+@media (max-width: 768px) {
+  .steps {
+    flex-direction: column; /* Stack vertically on mobile */
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .step {
+    width: 100%; /* Full width on mobile */
+    min-height: 250px; /* Slightly shorter on mobile */
+    padding: 2.5rem 2rem;
+  }
+  
+  /* Smaller text on mobile */
+  .how-it-works h2 {
+    font-size: 2rem;
+  }
+  
+  .step h3 {
+    font-size: 1.6rem;
+  }
+}
+
+/* Tablet responsive adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .step {
+    flex: 1;
+    min-width: 250px; /* Minimum width to prevent squishing */
+    min-height: 260px;
+  }
+}
+
+/* Desktop responsive adjustments */
+@media (min-width: 1025px) {
+  .step {
+    flex: 1; /* Equal distribution on desktop */
+  }
+}
+
+/* Featured Section - Common styling for both sliders */
+.featured {
+  text-align: center;
+  position: relative; /* For absolutely positioned navigation buttons */
+  margin-bottom: 4rem;
+  padding: 1.25rem;
+}
+
+/* Featured section headings */
+.featured h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+/* For luthier cards */
+.card {
+    background: var(--color-secondary-background);
+    border-radius: 12px;
+    margin: 0.5rem 0rem;
+    padding-bottom: 1rem;
+    max-width: 95%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+  
+
+.slick-prev:before,
+.slick-next:before {
+  color: var(--color-primary) !important;
+  font-size: 90px; /* optional: make them bigger */
+}
+
+/* Optional: better visibility against light background */
+.slick-prev,
+.slick-next {
+  z-index: 2;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.photo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0rem;
+  width: 100%;
+}
+
+.luthier-photo {
+  width: 100%;           
+  max-width: 90%; 
+  height: auto;           
+  max-height: 20%; 
+  object-fit:cover ;
+  border-radius: 10px;  
+  display: block;          
+  margin: 0 auto 1rem auto; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.card-info {
+  text-align: center;
+}
+
+.card-info h4 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+.card-info p {
+  margin: 0.2rem 0;
+  color: var(--color-text);
+}
+
+.card-info .bio {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* For Instrument cards... */
+.instrument-card {
+  background: var(--color-secondary-background);
+  border-radius: 12px;
+  margin: 2rem;
+  max-width: 95%;
+  margin: 0.5rem 0rem;
+  padding-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.instrument-card:hover {
+  transform: translateY(-5px);
+}
+
+.instrument-photo-wrapper {
+  width: 90%;               /* narrower than card → space on left/right */
+  height: 30rem;            /* fixed portrait frame */
+  margin: 1rem 0 0 0;        /* centers inside card */
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  background: #f8f8f8;
+}
+
+.instrument-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.instrument-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.instrument-info h4 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+.instrument-info p {
+  margin: 0.25rem 0;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}

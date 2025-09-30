@@ -1,0 +1,65 @@
+/* Import color theme variables for consistent styling */
+@import '../colortheme.css';
+
+.header {
+  background-color: var(--color-primary);
+  color: var(--color-white-text);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo styling */
+.logo a {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--color-white-text);
+}
+
+.logo a:hover {
+  color: var(--color-secondary);
+}
+
+/* Nav container */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+/* Nav links */
+.nav a {
+  color: var(--color-white-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav a:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-white-text);
+}
+
+/* Auth icon link */
+.auth-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-text);
+  /* border-radius: ; */
+  width: 32px;
+  height: 32px;
+  border-width: 10px;
+  border-color: white;
+  transition: background 0.2s ease;
+}
+
+.auth-link:hover {
+  background: var(--color-accent);
+  color: var(--color-white-text);
+}
