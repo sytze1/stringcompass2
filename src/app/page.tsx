@@ -68,6 +68,7 @@ export default function HomePage() {
 
   return (
     <div className="home">
+      <div className="home-inner">
       {/* Hero Section */}
       <section className="hero">
         <h1>Discover Luthiers Near You</h1>
@@ -77,6 +78,8 @@ export default function HomePage() {
         </p>
         <button className="explore-btn">Explore Luthiers</button>
       </section>
+
+      </div>
 
       {/* How It Works */}
       <section className="how-it-works">
@@ -102,6 +105,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="home-inner">
+
       {/* Featured Luthiers */}
       <section className="featured">
         <h2>Featured Luthiers</h2>
@@ -114,30 +119,33 @@ export default function HomePage() {
             speed={500}
             slidesToShow={5}
             slidesToScroll={1}
-            autoplay
-            autoplaySpeed={10000}
+            // autoplay
+            // autoplaySpeed={10000}
             responsive={[
-              { breakpoint: 1024, settings: { slidesToShow: 2 } },
-              { breakpoint: 600, settings: { slidesToShow: 1 } },
+              { breakpoint: 2400, settings: { slidesToShow: 4 } },
+              { breakpoint: 1800, settings: { slidesToShow: 3 } },
+              { breakpoint: 1200, settings: { slidesToShow: 2 } },
+              { breakpoint: 900, settings: { slidesToShow: 1 } },
             ]}
           >
             {featuredLuthiers.map((l) => {
               const location =
                 l.locationLabel || [l.city, l.country].filter(Boolean).join(", ");
+              const luthierImage = l.photoUrl
+                ? l.photoUrl.startsWith("http")
+                  ? l.photoUrl
+                  : `/uploads/luthiers/${l.photoUrl}`
+                : "https://placehold.co/600x400?text=Luthier";
 
               return (
                 <div className="card" key={l.id}>
                   <div className="photo-wrapper">
                     <Image
-                      src={
-                        l.photoUrl?.startsWith("http")
-                          ? l.photoUrl
-                          : `/uploads/luthiers/${l.photoUrl || "placeholder.jpg"}`
-                      }
+                      src={luthierImage}
                       alt={l.name}
                       className="luthier-photo"
-                      width={200}
-                      height={200}
+                      width={480}
+                      height={320}
                     />
                   </div>
                   <div className="card-info">
@@ -177,65 +185,77 @@ export default function HomePage() {
             speed={500}
             slidesToShow={5}
             slidesToScroll={1}
-            autoplay
-            autoplaySpeed={3500}
+            // autoplay
+            // autoplaySpeed={3500}
             responsive={[
-              { breakpoint: 1024, settings: { slidesToShow: 2 } },
-              { breakpoint: 600, settings: { slidesToShow: 1 } },
+              { breakpoint: 2400, settings: { slidesToShow: 4 } },
+              { breakpoint: 1800, settings: { slidesToShow: 3 } },
+              { breakpoint: 1200, settings: { slidesToShow: 2 } },
+              { breakpoint: 900, settings: { slidesToShow: 1 } },
             ]}
           >
-            {featuredInstruments.map((inst) => (
-              <div className="card instrument-card" key={inst.id}>
-                {/* Image carousel inside card */}
-                <Slider
-                  dots
-                  infinite
-                  speed={500}
-                  slidesToShow={1}
-                  slidesToScroll={1}
-                  arrows={false}
-                >
-                  {inst.media?.map((m) => (
-                    <div key={m.id} className="instrument-photo-wrapper">
-                      <Image
-                        src={
-                          m.url?.startsWith("http")
-                            ? m.url
-                            : `/uploads/instruments/${m.url || "placeholder.jpg"}`
-                        }
-                        alt={inst.title}
-                        className="instrument-photo"
-                        width={300}
-                        height={200}
-                      />
-                    </div>
-                  ))}
-                </Slider>
+            {featuredInstruments.map((inst) => {
+              const instrumentMedia: InstrumentMedia[] = inst.media && inst.media.length > 0
+                ? inst.media
+                : [{ id: -1, instrument_id: inst.id, url: '' }];
 
-                {/* Info */}
-                <div className="instrument-info">
-                  <h4>
-                    {inst.title} ({inst.year_built})
-                  </h4>
-                  <p>
-                    <strong>Condition:</strong> {inst.condition}
-                  </p>
-                  <p>
-                    <strong>Price:</strong> €
-                    {Number(inst.price).toLocaleString()}
-                  </p>
-                  <p>
-                    <strong>Location:</strong> {inst.location}
-                  </p>
-                  <p>
-                    <strong>Luthier:</strong> {inst.luthier_name}
-                  </p>
+              return (
+                <div className="card instrument-card" key={inst.id}>
+                  {/* Image carousel inside card */}
+                  <Slider
+                    dots
+                    infinite
+                    speed={500}
+                    slidesToShow={1}
+                    slidesToScroll={1}
+                    arrows={false}
+                  >
+                    {instrumentMedia.map((m) => {
+                      const mediaUrl = typeof m.url === "string" && m.url.length > 0
+                        ? m.url.startsWith("http")
+                          ? m.url
+                          : `/uploads/instruments/${m.url}`
+                        : "https://placehold.co/600x400?text=Instrument";
+                      return (
+                        <div key={`instrument-media-${inst.id}-${m.id}`} className="instrument-photo-wrapper">
+                          <Image
+                            src={mediaUrl}
+                            alt={inst.title}
+                            className="instrument-photo"
+                            width={480}
+                            height={320}
+                          />
+                        </div>
+                      );
+                    })}
+                  </Slider>
+
+                  {/* Info */}
+                  <div className="instrument-info">
+                    <h4>
+                      {inst.title} ({inst.year_built})
+                    </h4>
+                    <p>
+                      <strong>Condition:</strong> {inst.condition}
+                    </p>
+                    <p>
+                      <strong>Price:</strong> €
+                      {Number(inst.price).toLocaleString()}
+                    </p>
+                    <p>
+                      <strong>Location:</strong> {inst.location}
+                    </p>
+                    <p>
+                      <strong>Luthier:</strong> {inst.luthier_name}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </Slider>
         )}
       </section>
+      </div>
     </div>
   );
 }

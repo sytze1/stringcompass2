@@ -25,6 +25,18 @@ html, body {
 
 .main-content {
   flex: 1;
-  padding: 2rem;
+  padding: 0.8rem;
   background-color: #fffaf5;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .main-content {
+    padding: 2rem 3rem;
+  }
 }

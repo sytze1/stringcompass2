@@ -84,10 +84,10 @@ function formatAddress(luthier: Luthier) {
 }
 
 const INSTRUMENT_FILTERS = [
-  { value: "violin", label: "Violins" },
-  { value: "viola", label: "Violas" },
-  { value: "cello", label: "Cellos" },
-  { value: "contrabass", label: "Contrabasses" },
+  { value: "violin", label: "Violin" },
+  { value: "viola", label: "Viola" },
+  { value: "cello", label: "Cello" },
+  { value: "contrabass", label: "Contrabass" },
 ] as const;
 
 type InstrumentFilterValue = (typeof INSTRUMENT_FILTERS)[number]["value"];
@@ -554,6 +554,7 @@ export default function LuthiersPage() {
                       height={180}
                     />
                   </div>
+                  {/* Luthier CARD with content */}
                   <div className="card-content">
                     <div className="card-header">
                       <h3>{luthier.name}</h3>
@@ -570,16 +571,16 @@ export default function LuthiersPage() {
                         <strong>{luthier.distanceKm.toFixed(1)} km</strong> van jouw locatie
                       </p>
                     )}
+                    {luthier.instruments.length > 0 && (
+                      <p className="card-instruments">
+                        <strong>Instrumenten:</strong> {formatInstrumentList(luthier.instruments)}
+                      </p>
+                    )}
                     {luthier.website && (
                       <p className="card-link">
                         <a href={luthier.website} target="_blank" rel="noreferrer">
                           Bezoek website
                         </a>
-                      </p>
-                    )}
-                    {luthier.instruments.length > 0 && (
-                      <p className="card-instruments">
-                        <strong>Instrumenten:</strong> {formatInstrumentList(luthier.instruments)}
                       </p>
                     )}
                     {luthier.bio && <p className="card-bio">{luthier.bio}</p>}

@@ -47,7 +47,7 @@ export default function LuthierMap({ luthiers, userLocation }: LuthierMapProps) 
     return DEFAULT_CENTER;
   }, [luthiers, userLocation]);
 
-  const zoom = userLocation ? 9 : 5;
+  const zoom = userLocation ? 12 : 6;
 
   return (
     <MapContainer
