@@ -3,6 +3,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import Link from "next/link";
 import Image from "next/image";
 import Slider from "react-slick";
 import { useEffect, useState } from "react";
@@ -76,7 +77,7 @@ export default function HomePage() {
           Explore a world of hand-crafted violins, cellos, and bows—right in your
           neighborhood.
         </p>
-        <button className="explore-btn">Explore Luthiers</button>
+        <button className="explore-btn"><Link href="/luthiers">Explore Luthiers</Link></button>
       </section>
 
       </div>
@@ -183,7 +184,6 @@ export default function HomePage() {
             dots
             infinite
             speed={500}
-            slidesToShow={5}
             slidesToScroll={1}
             // autoplay
             // autoplaySpeed={3500}
@@ -193,6 +193,7 @@ export default function HomePage() {
               { breakpoint: 1200, settings: { slidesToShow: 2 } },
               { breakpoint: 900, settings: { slidesToShow: 1 } },
             ]}
+            slidesToShow={5}   
           >
             {featuredInstruments.map((inst) => {
               const instrumentMedia: InstrumentMedia[] = inst.media && inst.media.length > 0
